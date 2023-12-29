@@ -1,0 +1,6 @@
+{
+    "rpc_url": "https://sepolia.infura.io/v3/f8aa0d05a17e4aca9efc138b6206c447",
+    "hss_address": "0x48138B8486bc6095Dd90F7baA72C199593aa2c56",
+    "private_key": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+    "socket_port": "6969"
+}
