@@ -1,6 +1,6 @@
 import json
 
-config_file = './config.json'
+config_file = "./config.json"
 
 def getConfig():
     f = open(config_file)

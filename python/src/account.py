@@ -3,7 +3,6 @@ import crypto
 import test
 import transactions
 import hss
-###### Accounts############
 
 class SemaphoreNetworkAccount:
     def __init__(self, account):
@@ -16,7 +15,8 @@ class SemaphoreNetworkAccount:
 
     def get_subscriber_pubKey_from_chain(self,subscriberIndex):
         subscriberAccount = account_from_pk(subscriberIndex)
-    # get public key from subscriber todo: get this from chain
+        # Get public key from subscriber.
+        # TODO: get this from chain.
         subscriberPub = crypto.get_compressed_pub_from_account(subscriberAccount)[2:]
         return subscriberPub
     
@@ -25,42 +25,37 @@ class SemaphoreNetworkAccount:
         providerAccount = self.account
 
         print(
-            f"subscriber SUID index to lookup on chain (RAW) {subscriberIndex}")
+            f"Subscriber SUID index to lookup on chain (RAW) {subscriberIndex}")
 
-        # query web3 rpc @subscriber index, cast to int
-        ######################################################
+        # Query web3 rpc @subscriber index, cast to int.
         # subscriberPub = account.get_subscriber_pubKey_from_chain(int(subscriberIndex))
         s_hss = hss.SemaphoreHSS()
         subscriberPub = self.transactions.get_subscriber_pubkey(subscriberIndex)
 
         print(
-            f"subscriber @{subscriberIndex}'s (compressed)pubkey is {subscriberPub}")
+            f"Subscriber @{subscriberIndex}'s (compressed) pubkey is {subscriberPub}")
 
         # print(f"provider(self) compressed pubkey: {crypto.get_compressed_pub_from_account(providerAccount)[2:]}")
 
-    # #generate shared secret 
+        # Generate shared secret.
         print(int(subscriberPub.hex()[2:], 16))
         shared_secret = self.crypto.gen_shared_secret(providerAccount, int.from_bytes(subscriberPub, "big"))
         return shared_secret
 
-
-
     def generate_account(self):
-        account = Account.create('entropy lol')
+        account = Account.create("entropy lol")
         return account
 
-
     def import_account(self):
-    # todo: fn() that imports json wallet account & decrypts w/ env(?) password.
+        # TODO: fn() that imports json wallet account & decrypts w/ env(?) password.
         return
-
 
     def account_from_pk(self, pk):
         account = Account.from_key(pk)
         return account
 
     def get_uncompressed_pub_from_account(self, account = None):
-        #privatekey in base10
+        # Private key in base10.
         privTen = None
         if account != None:
             privTen = self.crypto.keyToBaseTen(account.key)
@@ -69,8 +64,7 @@ class SemaphoreNetworkAccount:
 
         pub = privTen * self.crypto.curve.g
         uncompressedPub = hex(pub.x)+hex(pub.y)[2:]
-        print('uncompressed pub key: ', uncompressedPub)
+        print("uncompressed pub key: ", uncompressedPub)
 
         return uncompressedPub
-
     
